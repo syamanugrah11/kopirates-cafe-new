@@ -71,16 +71,22 @@
 
             <div id="orderList"></div>
 
+            <div class="customer-form">
+
+                <input type="text" id="customerInput" class="customer-input" placeholder="Posisi? / Nama Pemesan?">
+
+            </div>
+
             <h3>Total: Rp <span id="total">0</span></h3>
 
             <div class="payment-buttons">
 
                 <button class="btn" onclick="showQRIS()">
-                    💳 Bayar QRIS
+                     Bayar QRIS 💳
                 </button>
 
                 <button class="btn" onclick="sendWhatsApp()">
-                    📱 Bayar via WhatsApp
+                     Bayar Lansung 💲
                 </button>
 
             </div>
@@ -105,22 +111,36 @@
 
     </section>
 
-    <div id="qrisPopup" class="qris-popup">
+    <div id="qrisPopup" class="qris-overlay">
 
         <div class="qris-box">
 
+            <button class="qris-close" onclick="closeQRIS()">✕</button>
+
             <h2>Pembayaran QRIS</h2>
 
-            <img src="images/qris.png" class="qris-img">
+            <p class="qris-sub">
+                Scan QR Code untuk melakukan pembayaran
+            </p>
 
-            <p>Scan QRIS di atas lalu tekan tombol dibawah (Bukti SS Pembayaran)</p>
+            <div class="qris-total">
+                Total Bayar
+                <br>
+                <span>Rp <span id="qrisTotal">0</span></span>
+            </div>
 
-            <button class="checkout-btn" onclick="confirmPayment()">
-                ✔ Saya Sudah Bayar
-            </button>
+            <div class="qris-image">
 
-            <button class="delete-btn" onclick="closeQRIS()">
-                Tutup
+                <img src="images/qris.png" alt="QRIS Payment">
+
+            </div>
+
+            <p class="qris-note">
+                Setelah pembayaran berhasil tekan tombol konfirmasi
+            </p>
+
+            <button class="btn-confirm" onclick="confirmPayment()">
+                Saya Sudah Bayar
             </button>
 
         </div>
