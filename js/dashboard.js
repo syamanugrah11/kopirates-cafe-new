@@ -1,4 +1,23 @@
+channel.onmessage = function () {
+
+    orders = JSON.parse(localStorage.getItem("kopirates_orders")) || []
+
+    updateDashboard()
+
+}
+
+channel.onmessage = function () {
+
+    orders = JSON.parse(localStorage.getItem("kopirates_orders")) || []
+
+    updateDashboard()
+
+}
+
 let orders = JSON.parse(localStorage.getItem("kopirates_orders")) || []
+
+let chart
+
 
 function updateDashboard() {
 
@@ -11,7 +30,9 @@ function updateDashboard() {
         income += o.total
 
         o.items.forEach(i => {
+
             menuCount[i.name] = (menuCount[i.name] || 0) + i.qty
+
         })
 
     })
@@ -19,7 +40,8 @@ function updateDashboard() {
     document.getElementById("totalOrder").innerText = totalOrder
     document.getElementById("income").innerText = income.toLocaleString("id-ID")
 
-    let best = Object.keys(menuCount).sort((a, b) => menuCount[b] - menuCount[a])[0] || "-"
+    let best = Object.keys(menuCount)
+        .sort((a, b) => menuCount[b] - menuCount[a])[0] || "-"
 
     document.getElementById("bestMenu").innerText = best
 
@@ -28,16 +50,26 @@ function updateDashboard() {
 
 }
 
+
 function renderOrders() {
 
     let box = document.getElementById("orders")
+
     box.innerHTML = ""
 
     orders.slice().reverse().forEach(o => {
 
-        let status = o.paid
-            ? '<span class="badge">PAID</span>'
-            : '<span class="badge unpaid">UNPAID</span>'
+        let status = ""
+
+        if (o.paid) {
+
+            status = '<span class="paid-status">✅ Lunas</span>'
+
+        } else {
+
+            status = '<span class="unpaid-status">❌ Belum Bayar</span> <button onclick="payOrder(\'' + o.id + '\')" class="pay-btn">Bayar</button>'
+
+        }
 
         box.innerHTML += `
 
@@ -61,11 +93,16 @@ Total: Rp ${o.total.toLocaleString("id-ID")}
 
 }
 
+
 function renderChart() {
 
     let data = orders.map(o => o.total)
 
-    new Chart(document.getElementById("salesChart"), {
+    if (chart) {
+        chart.destroy()
+    }
+
+    chart = new Chart(document.getElementById("salesChart"), {
 
         type: "line",
 
@@ -80,6 +117,41 @@ function renderChart() {
         }
 
     })
+
+}
+
+
+function payOrder(id) {
+
+    orders = orders.map(o => {
+
+        if (o.id === id) {
+            o.paid = true
+        }
+
+        return o
+
+    })
+
+    localStorage.setItem("kopirates_orders", JSON.stringify(orders))
+
+    updateDashboard()
+
+}
+
+
+function resetOrders() {
+
+    if (confirm("Reset semua order hari ini?")) {
+
+        localStorage.removeItem("kopirates_orders")
+        localStorage.removeItem("kopirates_order")
+
+        orders = []
+
+        updateDashboard()
+
+    }
 
 }
 
