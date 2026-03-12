@@ -3,58 +3,61 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dashboard Kasir KOPIRATES</title>
+    <title>Dashboard Kasir KOPIRATES</title>
 
-<link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/dashboard.css">
 
 </head>
 
 <body>
 
-<h1>☕ Dashboard Kasir KOPIRATES</h1>
+    <h1>☕ Dashboard Kasir KOPIRATES</h1>
 
-<div class="grid">
+    <div class="grid">
 
-<div class="card">
-<h3>Total Order</h3>
-<div class="big" id="totalOrder">0</div>
-</div>
+        <div class="card">
+            <h3>Total Order</h3>
+            <div class="big" id="totalOrder">0</div>
+        </div>
 
-<div class="card">
-<h3>Total Pendapatan</h3>
-<div class="big">Rp <span id="income">0</span></div>
-</div>
+        <div class="card">
+            <h3>Total Pendapatan</h3>
+            <div class="big">Rp <span id="income">0</span></div>
+        </div>
 
-<div class="card">
-<h3>Menu Terlaris</h3>
-<div class="big" id="bestMenu">-</div>
-</div>
+        <div class="card">
+            <h3>Menu Terlaris</h3>
+            <div class="big" id="bestMenu">-</div>
+        </div>
 
-<div class="card">
-<h3>Status</h3>
-<div id="notif">Menunggu order...</div>
-</div>
+        <div class="card">
+            <h3>Status</h3>
+            <div id="notif">Menunggu order...</div>
+        </div>
 
-</div>
+    </div>
 
-<h2 class="chart-title">Grafik Penjualan</h2>
+    <button onclick="resetOrders()">Reset Hari Ini</button>
 
-<canvas id="salesChart"></canvas>
+    <h2 class="chart-title">Grafik Penjualan</h2>
 
-<div class="order-list">
+    <canvas id="salesChart"></canvas>
 
-<h2>Order Masuk</h2>
+    <div class="order-list">
 
-<div id="orders"></div>
+        <h2>Order Masuk</h2>
 
-</div>
+        <div id="orders"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </div>
 
-<script src="js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="js/system.js"></script>
+    <script src="js/dashboard.js"></script>
 
 </body>
 
