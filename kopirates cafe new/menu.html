@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KOPIRATES Menu</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <nav>
+
+        <img src="images/logo.png">
+
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#order">Order</a></li>
+            <li><a href="tentang.html">Tentang</a></li>
+        </ul>
+
+    </nav>
+
+    <section class="section" id="menu">
+
+        <h2>Menu KOPIRATES</h2>
+
+        <div class="menu-tabs">
+
+            <button class="tab-btn active" onclick="showCategory('coffee')">
+                ☕ Coffee
+            </button>
+
+            <button class="tab-btn" onclick="showCategory('ice')">
+                🧊 Ice Coffee
+            </button>
+
+            <button class="tab-btn" onclick="showCategory('noncoffee')">
+                🍫 Non Coffee
+            </button>
+
+        </div>
+
+        <input type="text" id="searchMenu" placeholder="Cari menu..." onkeyup="filterMenu()">
+
+        <div id="coffee" class="menu-category">
+            <div class="menu-grid" id="coffeeMenu"></div>
+        </div>
+
+        <div id="ice" class="menu-category" style="display:none;">
+            <div class="menu-grid" id="iceMenu"></div>
+        </div>
+
+        <div id="noncoffee" class="menu-category" style="display:none;">
+            <div class="menu-grid" id="nonCoffeeMenu"></div>
+        </div>
+
+    </section>
+
+    <section class="section" id="order">
+
+        <h2>Pesanan</h2>
+
+        <div class="order-box">
+
+            <div id="orderList"></div>
+
+            <h3>Total: Rp <span id="total">0</span></h3>
+
+            <div class="payment-buttons">
+
+                <button class="btn" onclick="showQRIS()">
+                    💳 Bayar QRIS
+                </button>
+
+                <button class="btn" onclick="sendWhatsApp()">
+                    📱 Bayar via WhatsApp
+                </button>
+
+            </div>
+
+            <div class="order-type">
+
+                <button id="btn-dine" onclick="setOrderType('Dine In')">
+                    🍽 Dine In
+                </button>
+
+                <button id="btn-pickup" onclick="setOrderType('Pickup')">
+                    🏃 Pickup
+                </button>
+
+                <button id="btn-delivery" onclick="setOrderType('Delivery')">
+                    🚚 Delivery
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <div id="qrisPopup" class="qris-popup">
+
+        <div class="qris-box">
+
+            <h2>Pembayaran QRIS</h2>
+
+            <img src="images/qris.png" class="qris-img">
+
+            <p>Scan QRIS di atas lalu tekan tombol dibawah (Bukti SS Pembayaran)</p>
+
+            <button class="checkout-btn" onclick="confirmPayment()">
+                ✔ Saya Sudah Bayar
+            </button>
+
+            <button class="delete-btn" onclick="closeQRIS()">
+                Tutup
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="js/script.js"></script>
+    <script src="js/system.js"></script>
+
+</body>
+
+</html>
