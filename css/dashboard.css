@@ -1,73 +1,687 @@
+/* =====================================================
+GLOBAL RESET
+menghilangkan margin default browser
+===================================================== */
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+
+/* =====================================================
+BODY STYLE
+background pirate theme + layout center
+===================================================== */
+
 body {
+
     font-family: 'Segoe UI', sans-serif;
-    background: #0a0f2c;
+
+    background:
+        linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .85)),
+        url("../images/pirate-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    max-width: 1400px;
+    margin: auto;
+
     color: white;
     padding: 40px;
+
 }
+
+
+/* =====================================================
+TITLE
+===================================================== */
 
 h1 {
     color: gold;
     margin-bottom: 30px;
 }
 
+
+/* =====================================================
+DASHBOARD GRID
+container untuk card statistic
+===================================================== */
+
 .grid {
+
     display: grid;
+
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
     gap: 20px;
+
 }
+
+
+/* =====================================================
+GRID RESPONSIVE
+tablet layout
+===================================================== */
+
+@media (max-width:1000px) {
+
+    .grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+}
+
+/* =====================================================
+SMALL TABLET
+===================================================== */
+
+@media (max-width:600px) {
+
+    .grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+/* =====================================================
+DASHBOARD CARD
+box statistic seperti
+Total Order
+Revenue
+dll
+===================================================== */
 
 .card {
-    background: #111;
+
+    background: rgba(17, 17, 17, 0.9);
+
     padding: 25px;
+
     border-radius: 15px;
-    box-shadow: 0 0 15px rgba(255, 215, 0, .2);
+
+    box-shadow: 0 0 20px rgba(255, 215, 0, .3);
+
+    backdrop-filter: blur(4px);
+
+    transition: .3s;
+
 }
+
+/* hover effect premium */
+
+.card:hover {
+
+    transform: translateY(-5px) scale(1.03);
+
+    box-shadow: 0 0 25px rgba(255, 215, 0, .4);
+
+}
+
+
+/* =====================================================
+CARD TITLE
+===================================================== */
 
 .card h3 {
+
     margin-bottom: 10px;
+
     color: gold;
+
 }
 
+
+/* =====================================================
+BIG NUMBER
+angka statistik besar
+===================================================== */
+
 .big {
+
     font-size: 30px;
+
+    font-weight: bold;
+
+}
+
+
+/* =====================================================
+CHART TITLE
+===================================================== */
+
+.chart-title {
+
+    margin-top: 40px;
+
+}
+
+
+/* =====================================================
+CHART CANVAS
+Chart.js container
+===================================================== */
+
+canvas {
+
+    margin-top: 20px;
+
+    background: rgba(17, 17, 17, 0.9);
+
+    border-radius: 15px;
+
+    padding: 10px;
+
+    box-shadow:
+        0 0 20px rgba(255, 215, 0, .3),
+        0 0 40px rgba(255, 215, 0, .1);
+
+    backdrop-filter: blur(6px);
+
+}
+
+
+/* =====================================================
+ORDER LIST
+container daftar order realtime
+===================================================== */
+
+.order-list {
+
+    margin-top: 40px;
+
+}
+
+
+/* =====================================================
+ORDER ITEM
+box setiap order
+===================================================== */
+
+.order {
+
+    background: #111;
+
+    padding: 15px;
+
+    margin-bottom: 15px;
+
+    border-radius: 10px;
+
+}
+
+
+/* =====================================================
+STATUS BADGE
+===================================================== */
+
+.badge {
+
+    background: green;
+
+    padding: 4px 8px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+}
+
+/* order belum bayar */
+
+.unpaid {
+
+    background: red;
+
+}
+
+/* order sudah bayar */
+
+.paid {
+
+    background: #00c853;
+
+    color: white;
+
+    padding: 4px 10px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    margin-left: 10px;
+
+}
+
+/* =========================================
+MENUNGGU VERIFIKASI QRIS
+========================================= */
+
+.verify {
+
+    background: orange;
+
+    color: black;
+
+    padding: 4px 10px;
+
+    border-radius: 6px;
+
+    font-size: 12px;
+
+    margin-left: 10px;
+
+}
+
+/* =========================================
+ORDER BUTTON
+========================================= */
+.order button {
+    background: #2ecc71;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+}
+
+.order-code {
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+
+.order.canceled {
+    border: 2px solid red;
+    opacity: 0.6;
+}
+
+.canceled {
+    opacity: 0.5;
+    border: 2px solid red;
+}
+
+/* =====================================================
+PAY BUTTON
+tombol konfirmasi pembayaran kasir
+===================================================== */
+
+.pay-btn {
+
+    background: #ffcc00;
+
+    border: none;
+
+    padding: 5px 10px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    margin-left: 10px;
+
+}
+
+/* hover effect */
+
+.pay-btn:hover {
+
+    background: #ffd633;
+
+}
+
+/* =====================================================
+RESET BUTTON PREMIUM
+===================================================== */
+
+.reset-btn {
+
+    margin-top: 20px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    font-weight: bold;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    color: white;
+
+    background: linear-gradient(135deg, #ff3b3b, #ff0000);
+
+    box-shadow:
+        0 0 10px rgba(255, 0, 0, .5),
+        0 0 25px rgba(255, 0, 0, .2);
+
+    transition: all .25s ease;
+
+}
+
+
+/* hover effect */
+
+.reset-btn:hover {
+
+    transform: translateY(-2px) scale(1.03);
+
+    box-shadow:
+        0 0 15px rgba(255, 0, 0, .7),
+        0 0 35px rgba(255, 0, 0, .4);
+
+}
+
+
+/* click effect */
+
+.reset-btn:active {
+
+    transform: scale(.96);
+
+}
+
+/* =====================================================
+BUTTON MULAI BUAT
+===================================================== */
+
+.make-btn {
+
+    background: #2196f3;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+BUTTON ORDER SELESAI
+===================================================== */
+
+.done-btn {
+
+    background: #00c853;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+STATUS SIAP DIAMBIL
+===================================================== */
+
+.ready-status {
+
+    background: #00c853;
+    /* HIJAU */
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 5px;
+    display: inline-block;
+
+}
+
+
+
+
+/* =====================================================
+TOPBAR
+judul + language switch
+===================================================== */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =====================================================
+LANGUAGE SWITCH CONTAINER
+===================================================== */
+
+.lang-switch {
+
+    display: flex;
+
+    background: rgba(255, 255, 255, 0.1);
+
+    border-radius: 30px;
+
+    padding: 4px;
+
+    gap: 3px;
+
+}
+
+
+/* =====================================================
+LANGUAGE BUTTON
+===================================================== */
+
+.lang-btn {
+
+    border: none;
+
+    padding: 6px 14px;
+
+    border-radius: 20px;
+
+    background: transparent;
+
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+/* hover */
+
+.lang-btn:hover {
+
+    background: rgba(255, 255, 255, .2);
+
+}
+
+/* active language */
+
+.lang-btn.active {
+
+    background: #ffcc00;
+
+    color: black;
+
+}
+
+
+/* =====================================================
+MOBILE RESPONSIVE
+digabung dari 2 media query sebelumnya
+===================================================== */
+
+@media (max-width:768px) {
+
+    /* body padding lebih kecil */
+
+    body {
+
+        padding: 15px;
+
+    }
+
+    /* grid menjadi 1 kolom */
+
+    .grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    /* card lebih compact */
+
+    .card {
+
+        padding: 18px;
+
+    }
+
+    /* angka statistic diperkecil */
+
+    .big {
+
+        font-size: 24px;
+
+    }
+
+    /* order box */
+
+    .order {
+
+        padding: 12px;
+
+        font-size: 14px;
+
+    }
+
+    /* topbar stack vertical */
+
+    .topbar {
+
+        flex-direction: column;
+
+        gap: 12px;
+
+        text-align: center;
+
+    }
+
+    /* language button lebih kecil */
+
+    .lang-btn {
+
+        padding: 5px 12px;
+
+        font-size: 13px;
+
+    }
+
+    /* chart responsive */
+
+    canvas {
+
+        width: 100% !important;
+
+    }
+
+}
+
+/* =========================================
+ORDER ACTION BUTTON WRAPPER
+biar tombol rata tengah & rapi
+========================================= */
+.order-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+/* tombol umum dashboard */
+.order-actions button {
+    min-width: 100px;
+    text-align: center;
+    padding: 6px 12px;
     font-weight: bold;
 }
 
-.chart-title {
-    margin-top: 40px;
+/* HIGHLIGHT ORDER BARU */
+.new-order {
+    animation: highlightFlash 1s ease 2;
+    border: 2px solid gold;
 }
 
-canvas {
-    margin-top: 20px;
-    background: #111;
-    border-radius: 15px;
-    padding: 10px;
-}
+@keyframes highlightFlash {
+    0% {
+        background: rgba(255, 215, 0, 0.2);
+    }
 
-.order-list {
-    margin-top: 40px;
+    50% {
+        background: rgba(255, 215, 0, 0.6);
+    }
+
+    100% {
+        background: transparent;
+    }
 }
 
 .order {
-    background: #111;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 10px;
+    transition: all 0.3s ease;
 }
 
-.badge {
-    background: green;
-    padding: 4px 8px;
-    border-radius: 6px;
+.order-type-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
     font-size: 12px;
+    margin-left: 5px;
+    font-weight: bold;
 }
 
-.unpaid {
-    background: red;
+.order-type-badge.pickup {
+    background: orange;
+    color: black;
+}
+
+.order-type-badge.delivery {
+    background: #00c853;
+    color: white;
+}
+
+.order-type-badge.dine {
+    background: #00a3b5;
+    color: white;
+}
+
+/* TIMER QRIS */
+.qris-timer {
+    font-size: 14px;
+    font-weight: bold;
+    color: orange;
+    margin-top: 5px;
 }

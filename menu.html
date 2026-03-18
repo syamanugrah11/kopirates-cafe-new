@@ -14,89 +14,110 @@
 
 <body>
 
-    <nav>
+    <nav class="navbar">
 
-        <img src="images/logo.png">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="KOPIRATES">
+            </a>
+        </div>
 
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#order">Order</a></li>
-            <li><a href="tentang.html">Tentang</a></li>
+        <ul class="nav-links">
+
+            <li><a href="index.html" data-lang="home">Home</a></li>
+            <li><a href="#menu" data-lang="menu">Menu</a></li>
+            <li><a href="tentang.html" data-lang="about">Tentang</a></li>
+
         </ul>
+
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLang('id',this)">ID</button>
+            <button class="lang-btn" onclick="setLang('en',this)">EN</button>
+        </div>
 
     </nav>
 
     <section class="section" id="menu">
 
-        <h2>Menu KOPIRATES</h2>
+        <h2 data-lang="menu_title">Menu KOPIRATES</h2>
 
         <div class="menu-tabs">
 
-            <button class="tab-btn active" onclick="showCategory('coffee')">
+            <button class="tab-btn active" onclick="showCategory('coffeeMenu', this)">
                 ☕ Coffee
             </button>
 
-            <button class="tab-btn" onclick="showCategory('ice')">
+            <button class="tab-btn" onclick="showCategory('iceMenu', this)">
                 🧊 Ice Coffee
             </button>
 
-            <button class="tab-btn" onclick="showCategory('noncoffee')">
-                🍫 Non Coffee
+            <button class="tab-btn" onclick="showCategory('nonCoffeeMenu', this)">
+                🍹 Non Coffee
             </button>
+
 
         </div>
 
-        <input type="text" id="searchMenu" placeholder="Cari menu..." onkeyup="filterMenu()">
+        <input type="text" id="searchMenu" data-lang="search_menu" placeholder="">
 
-        <div id="coffee" class="menu-category">
+        <div id="coffeeMenu" class="menu-category">
             <div class="menu-grid" id="coffeeMenu"></div>
         </div>
 
-        <div id="ice" class="menu-category" style="display:none;">
+        <div id="iceMenu" class="menu-category" style="display:none;">
             <div class="menu-grid" id="iceMenu"></div>
         </div>
 
-        <div id="noncoffee" class="menu-category" style="display:none;">
+        <div id="nonCoffeeMenu" class="menu-category" style="display:none;">
             <div class="menu-grid" id="nonCoffeeMenu"></div>
         </div>
+
 
     </section>
 
     <section class="section" id="order">
 
-        <h2>Pesanan</h2>
+        <h2 data-lang="order_title">Pesanan</h2>
 
         <div class="order-box">
 
             <div id="orderList"></div>
 
-            <h3>Total: Rp <span id="total">0</span></h3>
+            <div class="customer-form">
+
+                <input id="customerInput" class="customer-input" data-lang="customer_dine" placeholder="">
+
+            </div>
+
+            <div class="order-total">
+                <span data-lang="total">Total</span> :
+                <span class="price">Rp <span id="total">0</span></span>
+            </div>
 
             <div class="payment-buttons">
 
-                <button class="btn" onclick="showQRIS()">
-                    💳 Bayar QRIS
+                <button class="pay-btn pay-qris" onclick="showQRIS()" data-lang="pay_qris">
+                    Pay QRIS
                 </button>
 
-                <button class="btn" onclick="sendWhatsApp()">
-                    📱 Bayar via WhatsApp
+                <button class="pay-btn pay-cash" onclick="sendWhatsApp()" data-lang="pay_cash">
+                    Pay Cash
                 </button>
 
             </div>
 
             <div class="order-type">
 
-                <button id="btn-dine" onclick="setOrderType('Dine In')">
-                    🍽 Dine In
+                <button id="btn-dine" onclick="setOrderType('Dine In')" data-lang="dinein">
+                    Makan di Tempat
                 </button>
 
-                <button id="btn-pickup" onclick="setOrderType('Pickup')">
-                    🏃 Pickup
+                <button id="btn-pickup" onclick="setOrderType('Pickup')" data-lang="pickup">
+                    Ambil Sendiri
                 </button>
 
-                <button id="btn-delivery" onclick="setOrderType('Delivery')">
-                    🚚 Delivery
+                <button id="btn-delivery" onclick="setOrderType('Delivery')" data-lang="delivery">
+                    Pesan Antar
                 </button>
 
             </div>
@@ -105,30 +126,147 @@
 
     </section>
 
-    <div id="qrisPopup" class="qris-popup">
+    <div id="qrisPopup" class="qris-overlay">
 
         <div class="qris-box">
 
-            <h2>Pembayaran QRIS</h2>
+            <button class="qris-close" onclick="closeQRIS()">✕</button>
 
-            <img src="images/qris.png" class="qris-img">
+            <h2 data-lang="qris_payment"></h2>
 
-            <p>Scan QRIS di atas lalu tekan tombol dibawah (Bukti SS Pembayaran)</p>
+            <p data-lang="scan_qr"></p>
 
-            <button class="checkout-btn" onclick="confirmPayment()">
-                ✔ Saya Sudah Bayar
-            </button>
+            <div class="qris-total">
+                <span data-lang="total_pay"></span>
+                <br>
+                <span>Rp <span id="qrisTotal">0</span></span>
+            </div>
 
-            <button class="delete-btn" onclick="closeQRIS()">
-                Tutup
+            <div class="qris-image">
+
+                <img src="images/qris.png" alt="QRIS Payment">
+
+            </div>
+
+            <p class="qris-note" data-lang="scan_qr"></p>
+
+            <button class="btn-confirm" onclick="confirmPayment()" data-lang="confirm_pay">
+                Saya Sudah Bayar
             </button>
 
         </div>
 
     </div>
 
+    <!-- =====================================================
+FLOATING CART PREMIUM
+keranjang melayang mengikuti scroll
+===================================================== -->
+
+    <div class="floating-cart" onclick="openCartPopup()">
+
+        <!-- icon cart -->
+        🛒
+
+        <!-- jumlah item -->
+        <span id="cartCount">0</span>
+
+    </div>
+
+    <!-- =====================================================
+CART POPUP
+popup yang menampilkan semua pesanan
+===================================================== -->
+
+    <div class="cart-popup" id="cartPopup">
+
+        <div class="cart-content">
+
+            <!-- Judul -->
+            <h3>🛒 Pesanan Kamu</h3>
+
+            <!-- daftar item -->
+            <div id="cartItems"></div>
+
+            <!-- total harga -->
+            <div class="cart-total">
+                Total : Rp <span id="cartTotal">0</span>
+            </div>
+
+            <!-- tombol aksi -->
+            <div class="cart-actions">
+
+                <button onclick="closeCartPopup()" class="btn-secondary">
+                    Tambah Menu
+                </button>
+
+                <button onclick="goToPayment()" class="btn-primary">
+                    Bayar Sekarang
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =====================================================
+POPUP STATUS ORDER CUSTOMER
+ditampilkan setelah customer order
+===================================================== -->
+
+    <div class="status-popup" id="statusPopup">
+
+        <div class="status-content">
+
+            <h3>🧾 Pesanan Kamu</h3>
+
+            <!-- ===============================
+                        ORDER ID
+                =============================== -->
+            <div class="order-id">
+                Order ID : <span id="customerOrderId">-</span>
+            </div>
+
+            <!-- ===============================
+                    DETAIL PESANAN CUSTOMER
+                =============================== -->
+            <div id="customerOrderDetail" class="order-detail">
+                <!-- detail pesanan akan diisi oleh JavaScript -->
+            </div>
+
+            <!-- ===============================
+                    STATUS PESANAN
+                    =============================== -->
+            <div class="order-status" id="customerStatus">
+                Menunggu konfirmasi...
+            </div>
+
+            <button onclick="toggleStatusPopup()" class="close-status">
+                Sembunyikan
+            </button>
+
+        </div>
+
+
+    </div>
+
+    <!-- =====================================================
+STATUS ORDER TOGGLE BUTTON
+tombol kecil untuk membuka kembali popup status
+===================================================== -->
+
+    <div class="status-toggle" onclick="toggleStatusPopup()">
+        🔔
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <script src="js/firebase.js"></script>
     <script src="js/script.js"></script>
     <script src="js/system.js"></script>
+    <script src="js/lang.js"></script>
 
 </body>
 

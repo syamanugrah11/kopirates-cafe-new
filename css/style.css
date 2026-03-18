@@ -5,10 +5,51 @@
 }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom, #0a0f2c, #000);
+    margin: 0;
+    font-family: Arial, sans-serif;
     color: white;
-    overflow-x: hidden;
+}
+
+.hero {
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65),
+            rgba(0, 0, 0, 0.65)),
+        url("images/pirate-bg.jpg");
+    /* ganti dengan gambar kamu */
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 70px;
+    color: #FFD700;
+    letter-spacing: 5px;
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin: 15px 0 30px;
+    color: #ddd;
+}
+
+.btn {
+    background: #FFD700;
+    border: none;
+    padding: 14px 32px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #ffc400;
 }
 
 /* NAVBAR */
@@ -45,6 +86,41 @@ nav a {
 
 nav a:hover {
     color: gold;
+}
+
+.nav-links a {
+
+    position: relative;
+    padding: 5px 2px;
+    transition: .3s;
+
+}
+
+.nav-links a::after {
+
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+
+    width: 0%;
+    height: 2px;
+
+    background: gold;
+    transition: .3s;
+
+}
+
+.nav-links a:hover {
+
+    color: gold;
+
+}
+
+.nav-links a:hover::after {
+
+    width: 100%;
+
 }
 
 /* HERO */
@@ -107,8 +183,36 @@ nav a:hover {
 
 .menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.menu-item {
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+}
+
+/* 🔥 INI YANG PALING PENTING */
+.menu-item img {
+    width: 100%;
+    height: 200px;
+    /* bisa kamu ubah */
+    object-fit: cover;
+    /* biar full & rapi */
+    display: block;
+    transition: transform 0.3s;
+}
+
+.menu-item:hover img {
+    transform: scale(1.05);
+}
+
+/* konten bawah */
+.menu-info {
+    padding: 12px;
+    text-align: center;
 }
 
 .menu-tabs {
@@ -178,6 +282,21 @@ nav a:hover {
     object-fit: cover;
 }
 
+/* =====================================================
+MENU CARD MOBILE IMPROVEMENT
+gambar lebih proporsional di HP
+===================================================== */
+
+@media (max-width:768px) {
+
+    .card img {
+
+        height: 140px;
+
+    }
+
+}
+
 .card h3 {
     margin: 10px;
 }
@@ -244,6 +363,16 @@ nav a:hover {
     margin-bottom: 8px;
 }
 
+.delivery-fee {
+
+    border-top: 1px dashed #555;
+    margin-top: 6px;
+    padding-top: 6px;
+    color: #ffcc00;
+    font-weight: 600;
+
+}
+
 .delete-btn {
     background: red;
     border: none;
@@ -262,6 +391,12 @@ nav a:hover {
     color: white;
     font-weight: bold;
     cursor: pointer;
+}
+
+/* ORDER ID */
+.order small {
+    opacity: 0.6;
+    font-size: 12px;
 }
 
 /* FOOTER */
@@ -306,56 +441,65 @@ footer {
     outline: none;
 }
 
-/* QRIS MODAL */
 
-#qrisModal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, .9);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
+/* PAYMENT PREMIUM BUTTON */
 
-.qris-box {
-    background: #111;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 0 30px gold;
-}
+.pay-btn {
 
-.qris-box img {
-    margin: 15px 0;
-    border-radius: 10px;
-}
-
-/* QRIS PREMIUM BUTTON */
-
-.qris-btn {
-
-    margin-top: 10px;
-    background: linear-gradient(45deg, gold, #ffae00);
-    padding: 12px 22px;
-    border: none;
+    padding: 12px 28px;
     border-radius: 30px;
-    font-weight: bold;
-    cursor: pointer;
-    color: black;
     font-size: 16px;
-    transition: .3s;
-    box-shadow: 0 0 15px rgba(255, 215, 0, .5);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+
+    transition: all 0.35s ease;
 
 }
 
-.qris-btn:hover {
+.pay-btn:hover {
 
-    transform: scale(1.08);
-    box-shadow: 0 0 25px gold;
+    transform: translateY(-2px) scale(1.03);
+
+}
+
+.pay-qris {
+
+    background: #111;
+    color: #ffd700;
+
+    border: 2px solid #ffd700;
+
+}
+
+.pay-qris:hover {
+
+    background: linear-gradient(45deg, #ffd700, #ffae00);
+    color: black;
+
+    box-shadow: 0 0 18px rgba(255, 215, 0, .8);
+
+    transform: translateY(-2px);
+
+}
+
+.pay-cash {
+
+    background: #111;
+    color: #ffd700;
+
+    border: 2px solid #ffd700;
+
+}
+
+.pay-cash:hover {
+
+    background: linear-gradient(45deg, #ffd700, #ffae00);
+    color: black;
+
+    box-shadow: 0 0 18px rgba(255, 215, 0, .8);
+
+    transform: translateY(-2px);
 
 }
 
@@ -480,6 +624,247 @@ footer {
 
 }
 
+/* OVERLAY */
+
+.qris-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 99999;
+    /* 🔥 NAHKAN INI */
+}
+
+
+
+/* CUSTOMER INPUT */
+
+.customer-input {
+
+    width: 100%;
+    padding: 14px 16px;
+
+    border-radius: 14px;
+    border: 2px solid #FFD700;
+
+    background: #0f0f0f;
+
+    color: white;
+    font-size: 15px;
+
+    outline: none;
+
+    transition: all .25s ease;
+
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.2);
+
+}
+
+/* placeholder */
+
+.customer-input::placeholder {
+
+    color: #bbb;
+    font-size: 14px;
+
+}
+
+/* focus effect */
+
+.customer-input:focus {
+
+    border-color: #FFD700;
+
+    box-shadow:
+        0 0 10px rgba(255, 215, 0, 0.6),
+        0 0 20px rgba(255, 215, 0, 0.3);
+
+    background: #141414;
+
+    transform: scale(1.02);
+
+}
+
+/* BOX */
+
+.qris-box {
+
+    background: #111;
+
+    padding: 30px;
+
+    border-radius: 16px;
+
+    width: 320px;
+
+    max-width: 350px;
+    width: 90%;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    text-align: center;
+
+    color: white;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.6);
+
+    position: relative;
+
+    animation: popup 0.3s ease;
+
+}
+
+@keyframes popup {
+
+    from {
+        transform: scale(.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+}
+
+/* CLOSE */
+
+.qris-close {
+
+    position: absolute;
+
+    top: 10px;
+    right: 10px;
+
+    background: none;
+
+    border: none;
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+}
+
+/* TOTAL */
+
+.qris-total {
+
+    margin: 15px 0;
+
+    font-size: 14px;
+
+    color: #aaa;
+
+}
+
+.qris-total span {
+
+    font-size: 22px;
+
+    color: #FFD700;
+
+    font-weight: bold;
+
+}
+
+/* QR IMAGE */
+
+.qris-image img {
+
+    width: 200px;
+
+    border-radius: 12px;
+
+    background: white;
+
+    padding: 10px;
+
+}
+
+/* NOTE */
+
+.qris-note {
+
+    font-size: 12px;
+
+    color: #aaa;
+
+    margin: 15px 0;
+
+}
+
+/* BUTTON */
+
+.btn-confirm {
+
+    background: #FFD700;
+
+    border: none;
+
+    color: black;
+
+    padding: 12px;
+
+    width: 100%;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.btn-confirm:hover {
+
+    transform: scale(1.05);
+
+}
+
+/* DELETE BUTTON */
+
+.delete-btn {
+
+    background: none;
+    border: none;
+
+    color: #ff4d4d;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    margin-left: 10px;
+
+    transition: 0.2s;
+
+}
+
+.delete-btn:hover {
+
+    transform: scale(1.2);
+
+    color: red;
+
+}
+
 /* CONTAINER */
 
 .qris-container {
@@ -583,179 +968,1302 @@ footer {
 
 }
 
-.payment-buttons{
-margin-top:20px;
-display:flex;
-gap:10px;
-justify-content:center;
-flex-wrap:wrap;
+.qris-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-.qris-popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.8);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:1000;
+.qris-box {
+    background: #111;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 40px gold;
 }
 
-.qris-box{
-background:#111;
-padding:30px;
-border-radius:20px;
-text-align:center;
-box-shadow:0 0 40px gold;
-}
-
-.qris-img{
-width:250px;
-margin:20px 0;
+.qris-img {
+    width: 250px;
+    margin: 20px 0;
 }
 
 /* NAVBAR */
 
-.navbar{
+.navbar {
 
-display:flex;
-justify-content:space-between;
-align-items:center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-padding:20px 8%;
+    padding: 20px 8%;
 
-background:#0b0f2b;
-color:white;
+    background: #0b0f2b;
+    color: white;
 
-position:sticky;
-top:0;
+    position: sticky;
+    top: 0;
 
-z-index:1000;
-
-}
-
-.logo img{
-height:50px;
-}
-
-.nav-links{
-display:flex;
-list-style:none;
-gap:30px;
-}
-
-.nav-links a{
-
-text-decoration:none;
-color:white;
-font-weight:500;
-transition:.3s;
+    z-index: 1000;
 
 }
 
-.nav-links a:hover{
-color:gold;
+.logo img {
+
+    height: 50px;
+    transition: 0.3s;
+
 }
+
+.logo img:hover {
+
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 8px gold);
+
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: .3s;
+
+}
+
+.nav-links a:hover {
+    color: gold;
+}
+
+/* ===============================
+NAVBAR ACTIVE STYLE
+=============================== */
+
+.nav-links a.active {
+
+    color: gold;
+    /* warna tulisan */
+    font-weight: 600;
+    /* lebih tebal */
+
+}
+
+/* garis bawah aktif */
+
+.nav-links a.active::after {
+
+    width: 100%;
+
+}
+
 
 
 /* HERO PIRATE BACKGROUND */
 
-.hero{
+.hero {
 
-height:90vh;
+    height: 90vh;
 
-display:flex;
-align-items:center;
-justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-text-align:center;
+    text-align: center;
 
-color:white;
+    color: rgb(0, 0, 0);
 
-background:
-linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
-url("images/pirate-bg.jpg");
+    background:
+        linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .75)),
+        url("../images/pirate-bg.jpg");
 
-background-size:cover;
-background-position:center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
 }
 
-.hero h1{
-font-size:60px;
-letter-spacing:3px;
+.hero h1 {
+    font-size: 60px;
+    letter-spacing: 3px;
 }
 
-.hero p{
-margin:20px 0;
-font-size:20px;
+.hero p {
+    margin: 20px 0;
+    font-size: 20px;
 }
 
 
 /* BUTTON */
 
-.btn{
+.btn {
 
-padding:12px 30px;
-border:none;
-background:gold;
-color:black;
+    padding: 12px 30px;
+    border: none;
+    background: gold;
+    color: black;
 
-font-size:16px;
-border-radius:8px;
+    font-size: 16px;
+    border-radius: 8px;
 
-cursor:pointer;
-transition:.3s;
+    cursor: pointer;
+    transition: .3s;
 
 }
 
-.btn:hover{
-transform:scale(1.05);
+.btn:hover {
+    transform: scale(1.05);
 }
 
+/* LANG BUTTON */
+
+.lang-switch {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 4px;
+    gap: 3px;
+    margin-left: 20px;
+}
+
+.lang-btn {
+    border: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: transparent;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.lang-btn:hover {
+    background: rgba(255, 255, 255, .2);
+}
+
+.lang-btn.active {
+    background: #ffcc00;
+    color: black;
+}
 
 /* SECTION */
 
-.section{
+.section {
 
-padding:80px 10%;
-text-align:center;
+    padding: 80px 10%;
+    text-align: center;
 
 }
 
 
 /* FOOTER */
 
-footer{
+footer {
 
-background:#0b0f2b;
-color:white;
+    background: #0b0f2b;
+    color: white;
 
-text-align:center;
+    text-align: center;
 
-padding:25px;
+    padding: 25px;
 
 }
 
 
 /* RESPONSIVE MOBILE */
 
-@media(max-width:768px){
+@media(max-width:768px) {
 
-.hero h1{
-font-size:40px;
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .nav-links {
+        gap: 15px;
+        font-size: 14px;
+    }
+
+    .navbar {
+        padding: 15px 5%;
+    }
+
 }
 
-.nav-links{
-gap:15px;
-font-size:14px;
+/* GLOBAL PIRATE BACKGROUND (MENU & TENTANG) */
+
+body {
+
+    background:
+        linear-gradient(rgba(0, 0, 0, .75), rgba(0, 0, 0, .85)),
+        url("../images/pirate-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
 }
 
-.navbar{
-padding:15px 5%;
+.section {
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 20px;
 }
 
+/* TOTALAN */
+.order-total {
+
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+
+}
+
+.price {
+
+    font-weight: 700;
+    font-size: 22px;
+
+}
+
+#customerName {
+
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 2px solid #ffd700;
+    background: #111;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+
+}
+
+#customerName:focus {
+
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.4);
+
+}
+
+/* ===============================
+ANIMATION SAAT TOTAL BERUBAH
+=============================== */
+
+.added-animation {
+
+    animation: addedPop .3s ease;
+
+}
+
+/* keyframe animasi */
+
+@keyframes addedPop {
+
+    0% {
+        transform: scale(.9);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+/* =====================================================
+RESPONSIVE SYSTEM
+membuat website nyaman di tablet & mobile
+===================================================== */
+
+/* =========================
+TABLET
+========================= */
+@media (max-width: 1024px) {
+
+    .navbar {
+
+        padding: 15px 20px;
+
+    }
+
+    .hero h1 {
+
+        font-size: 36px;
+
+    }
+
+    .menu-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+}
+
+
+/* =========================
+MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    /* navbar */
+
+    .navbar {
+
+        flex-direction: column;
+        gap: 15px;
+
+    }
+
+    /* menu navbar */
+
+    .nav-links {
+
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+
+    }
+
+    /* hero section */
+
+    .hero h1 {
+
+        font-size: 28px;
+
+    }
+
+    .hero p {
+
+        font-size: 15px;
+
+    }
+
+    /* menu card */
+
+    .menu-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    /* order cart */
+
+    .order-box {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* =========================
+SMALL MOBILE
+========================= */
+@media (max-width:480px) {
+
+    body {
+
+        padding: 15px;
+
+    }
+
+    /* navbar logo */
+
+    .logo img {
+
+        height: 40px;
+
+    }
+
+    /* language button */
+
+    .lang-btn {
+
+        padding: 5px 10px;
+        font-size: 12px;
+
+    }
+
+    /* order input */
+
+    #customerInput {
+
+        font-size: 14px;
+
+    }
+
+    /* total */
+
+    .order-total {
+
+        font-size: 18px;
+
+    }
+
+}
+
+/* =====================================================
+RESPONSIVE MOBILE IMPROVEMENT
+Menyesuaikan tampilan untuk HP dan tablet
+Tambahkan di PALING BAWAH style.css
+===================================================== */
+
+@media (max-width:768px) {
+
+    /* ---------------------------
+NAVBAR MOBILE
+menu menjadi lebih rapi
+--------------------------- */
+
+    nav {
+
+        padding: 12px 20px;
+        /* mengecilkan padding navbar */
+
+    }
+
+    nav ul {
+
+        gap: 15px;
+        /* jarak antar menu diperkecil */
+
+        font-size: 14px;
+        /* ukuran font menu lebih kecil */
+
+    }
+
+    /* ---------------------------
+HERO SECTION MOBILE
+agar tulisan tidak terlalu besar
+--------------------------- */
+
+    .hero h1 {
+
+        font-size: 36px;
+        /* sebelumnya 60px */
+
+        letter-spacing: 2px;
+
+    }
+
+    .hero p {
+
+        font-size: 16px;
+
+    }
+
+    /* ---------------------------
+BUTTON HERO
+agar tidak terlalu besar di HP
+--------------------------- */
+
+    .btn {
+
+        padding: 10px 22px;
+
+        font-size: 16px;
+
+    }
+
+    /* ---------------------------
+MENU GRID MOBILE
+menu menjadi 2 kolom
+--------------------------- */
+
+    .menu-grid {
+
+        grid-template-columns: repeat(2, 1fr);
+
+    }
+
+    /* ---------------------------
+SEARCH BOX
+agar penuh layar
+--------------------------- */
+
+    #searchMenu {
+
+        width: 100%;
+
+    }
+
+    /* ---------------------------
+ORDER BOX
+agar padding lebih nyaman
+--------------------------- */
+
+    .cart {
+
+        padding: 15px;
+
+    }
+
+    /* ---------------------------
+TOTAL BOX
+supaya tidak terlalu besar
+--------------------------- */
+
+    .total-box {
+
+        font-size: 16px;
+
+    }
+
+}
+
+/* =====================================================
+TABLET RESPONSIVE
+untuk layar 769px - 1100px
+===================================================== */
+
+@media (max-width:1100px) {
+
+    /* ---------------------------
+MENU GRID TABLET
+3 kolom menu
+--------------------------- */
+
+    .menu-grid {
+
+        grid-template-columns: repeat(3, 1fr);
+
+    }
+
+    /* ---------------------------
+HERO TEXT
+sedikit diperkecil
+--------------------------- */
+
+    .hero h1 {
+
+        font-size: 48px;
+
+    }
+
+}
+
+/* =====================================================
+PAYMENT BUTTON MOBILE
+agar tombol pembayaran tidak terlalu besar
+===================================================== */
+
+@media (max-width:768px) {
+
+    .pay-btn {
+
+        width: 100%;
+        /* tombol full width */
+
+        margin-top: 8px;
+
+    }
+
+    .qris-buttons {
+
+        flex-direction: column;
+        /* tombol QRIS vertikal */
+
+    }
+
+}
+
+/* =====================================================
+FLOATING CART
+keranjang melayang khusus menu.html
+===================================================== */
+
+.floating-cart {
+
+    position: fixed;
+
+    right: 25px;
+
+    /* sebelumnya bottom:25px */
+    bottom: calc(25px + env(safe-area-inset-bottom));
+
+    background: linear-gradient(45deg, gold, orange);
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 20px rgba(255, 215, 0, .6);
+
+    z-index: 9999;
+
+    transition: 0.3s;
+
+}
+
+
+/* hover premium */
+
+.floating-cart:hover {
+
+    transform: scale(1.1);
+    box-shadow: 0 0 30px gold;
+
+}
+
+
+/* ======================================
+RESPONSIVE FLOATING CART
+====================================== */
+
+@media (max-width:768px) {
+
+    .floating-cart {
+
+        width: 55px;
+        height: 55px;
+
+        font-size: 20px;
+
+        right: 18px;
+        bottom: 18px;
+
+    }
+
+}
+
+
+/* =====================================================
+CART COUNT
+angka jumlah item di icon
+===================================================== */
+
+#cartCount {
+
+    position: absolute;
+
+    top: -5px;
+    right: -5px;
+
+    background: red;
+    color: white;
+
+    font-size: 12px;
+
+    padding: 3px 7px;
+
+    border-radius: 50%;
+
+}
+
+/* =====================================================
+CART POPUP BACKGROUND
+===================================================== */
+
+.cart-popup {
+
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: none;
+
+    align-items: flex-end;
+
+    z-index: 1000;
+
+}
+
+
+/* =====================================================
+CART POPUP CONTENT
+tampilan isi popup keranjang
+===================================================== */
+
+.cart-content {
+
+    background: #111;
+
+    width: 100%;
+    max-width: 500px;
+
+    margin: auto;
+
+    padding: 25px;
+
+    border-radius: 20px 20px 0 0;
+
+    max-height: 75%;
+
+    overflow-y: auto;
+
+    animation: slideUp .35s ease;
+
+    color: white;
+
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+
+}
+
+/* =====================================================
+CART TITLE
+===================================================== */
+
+.cart-content h2 {
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+    font-size: 22px;
+
+    color: gold;
+
+}
+
+/* =====================================================
+POPUP ORDER LIST
+container daftar pesanan
+===================================================== */
+
+#cartItems {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+/* =====================================================
+ITEM PESANAN DI POPUP
+===================================================== */
+
+.popup-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #1a1a1a;
+
+    padding: 12px 15px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+}
+
+/* =====================================================
+DELETE BUTTON
+tombol hapus item
+===================================================== */
+
+.delete-btn {
+
+    background: #ff3b3b;
+
+    border: none;
+
+    color: white;
+
+    font-size: 12px;
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    margin-left: 10px;
+
+    transition: .2s;
+
+}
+
+/* hover effect */
+
+.delete-btn:hover {
+
+    background: #ff0000;
+
+    transform: scale(1.1);
+
+}
+
+/* =====================================================
+CART ACTION BUTTON
+===================================================== */
+
+.cart-actions {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+}
+
+.cart-actions button {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .25s;
+
+}
+
+/* =====================================================
+BUTTON TAMBAH MENU
+===================================================== */
+
+.cart-actions button:first-child {
+
+    background: transparent;
+
+    border: 2px solid gold;
+
+    color: gold;
+
+}
+
+.cart-actions button:first-child:hover {
+
+    background: gold;
+
+    color: black;
+
+}
+
+/* =====================================================
+BUTTON BAYAR SEKARANG
+===================================================== */
+
+.cart-actions button:last-child {
+
+    background: linear-gradient(45deg, gold, orange);
+
+    color: black;
+
+}
+
+.cart-actions button:last-child:hover {
+
+    transform: scale(1.05);
+
+    box-shadow: 0 0 10px gold;
+
+}
+
+
+/* =====================================================
+ANIMASI SLIDE UP
+===================================================== */
+
+@keyframes slideUp {
+
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+
+}
+
+/* =====================================================
+STATUS POPUP CUSTOMER
+===================================================== */
+
+.status-popup {
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, .7);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 2000;
+
+}
+
+
+/* box popup */
+
+.status-content {
+
+    background: #111;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    text-align: center;
+
+    color: white;
+
+    width: 90%;
+    max-width: 350px;
+
+    border: 1px solid gold;
+
+}
+
+
+/* order id */
+
+.order-id {
+
+    margin-top: 10px;
+
+    font-weight: bold;
+
+}
+
+
+/* status */
+
+.order-status {
+
+    margin-top: 20px;
+
+    font-size: 18px;
+
+}
+
+.status-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+
+/* tombol tutup */
+
+.close-status {
+
+    margin-top: 20px;
+
+    padding: 10px 20px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: gold;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+#customerStatus {
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+/* =====================================================
+STATUS TOGGLE BUTTON
+tombol membuka kembali popup order
+===================================================== */
+
+.status-toggle {
+
+    position: fixed;
+
+    left: 20px;
+    bottom: 25px;
+
+    background: gold;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    box-shadow: 0 0 15px gold;
+
+    z-index: 1999;
+
+    transition: 0.3s;
+
+}
+
+.status-toggle:hover {
+
+    transform: scale(1.1);
+
+}
+
+#customerOrderDetail {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#customerOrderDetail div {
+    opacity: 0.9;
+}
+
+/* ===============================
+MOBILE CONTAINER FIX
+=============================== */
+
+@media (max-width:768px) {
+
+    .section {
+        padding: 40px 20px;
+    }
+
+}
+
+/* ===============================
+MENU CARD MOBILE IMPROVEMENT
+=============================== */
+
+@media (max-width:768px) {
+
+    .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .card h3 {
+        font-size: 15px;
+    }
+
+    .price {
+        font-size: 16px;
+    }
+
+    .card button {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+}
+
+/* ===============================
+SEARCH MOBILE
+=============================== */
+
+@media (max-width:768px) {
+
+    #searchMenu {
+        width: 100%;
+        font-size: 14px;
+    }
+
+}
+
+/* ===============================
+NAVBAR MOBILE FIX
+=============================== */
+
+@media (max-width:768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+}
+
+/* ===============================
+HERO MOBILE FIX
+=============================== */
+
+@media (max-width:768px) {
+
+    .hero {
+        height: 70vh;
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+}
+
+/* ===============================
+ORDER BOX MOBILE
+=============================== */
+
+@media (max-width:768px) {
+
+    .order-box {
+        padding: 15px;
+    }
+
+    .order-item {
+        font-size: 14px;
+    }
+
+    .order-total {
+        font-size: 18px;
+    }
+
+}
+
+/* ===============================
+CART POPUP MOBILE
+=============================== */
+
+@media (max-width:768px) {
+
+    .cart-content {
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .popup-item {
+        font-size: 13px;
+    }
+
+}
+
+/* ===============================
+ABOUT PAGE MOBILE
+=============================== */
+
+@media (max-width:768px) {
+
+    .section p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+}
+
+.step-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.step {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #444;
+    color: white;
+    font-size: 12px;
+}
+
+.step.active {
+    background: orange;
+    color: black;
+}
+
+/* TAMBAHAN KHUSUS UNTUK STEP TERAKHIR (SIAP) */
+.step-container .step:last-child.active {
+    background: limegreen;
+    color: black;
+}
+
+.step.done {
+    background: green;
+}
+
+.step.cancel {
+    background: red;
+}
+
+.new-order {
+    animation: popIn 0.4s ease;
+    border: 2px solid gold;
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+        background-color: rgba(255, 215, 0, 0.4);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        background-color: transparent;
+    }
 }

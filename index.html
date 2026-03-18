@@ -3,74 +3,79 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>KOPIRATES</title>
+    <title>KOPIRATES</title>
 
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<nav class="navbar">
+    <nav class="navbar">
 
-<div class="logo">
-<img src="images/logo.png" alt="KOPIRATES">
-</div>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="KOPIRATES">
+            </a>
+        </div>
 
-<ul class="nav-links">
+        <ul class="nav-links">
 
-<li><a href="index.html">Home</a></li>
+            <li><a href="index.html" data-lang="home">Home</a></li>
+            <li><a href="menu.html" data-lang="menu">Menu</a></li>
+            <li><a href="tentang.html" data-lang="about">Tentang</a></li>
 
-<li><a href="menu.html">Menu</a></li>
+        </ul>
 
-<li><a href="menu.html#order">Order</a></li>
+        <div class="lang-switch">
+            <button class="lang-btn active" onclick="setLang('id', this)">ID</button>
+            <button class="lang-btn" onclick="setLang('en', this)">EN</button>
+        </div>
 
-<li><a href="tentang.html">Tentang</a></li>
+    </nav>
 
-</ul>
+    <section class="hero">
 
-</nav>
+        <div class="hero-content">
 
+            <h1>KOPIRATES</h1>
 
-<section class="hero">
+            <p data-lang="tagline">
+                Grand Line Pirate Coffee Adventure
+            </p>
 
-<div class="hero-content">
+            <a href="menu.html">
+                <button class="btn" data-lang="lihat_menu">
+                    Lihat Menu
+                </button>
+            </a>
 
-<h1>KOPIRATES</h1>
+        </div>
 
-<p>Grand Line Pirate Coffee Adventure</p>
+    </section>
 
-<a href="menu.html">
-<button class="btn">Lihat Menu</button>
-</a>
+    <section class="section">
 
-</div>
+        <h2 data-lang="welcome">Selamat Datang</h2>
 
-</section>
+        <p data-lang="desc">
+            Cafe dengan konsep bajak laut yang menghadirkan pengalaman kopi seperti petualangan di Grand Line.
+        </p>
 
+    </section>
 
-<section class="section">
+    <footer>
 
-<h2>Selamat Datang</h2>
+        📍 Jl. Anggrek Perumnas No.5, Madawat
+        <br>
+        📞 +62 851-8688-3211
 
-<p>
-Cafe dengan konsep bajak laut yang menghadirkan pengalaman kopi
-seperti petualangan di Grand Line.
-</p>
+    </footer>
 
-</section>
-
-
-<footer>
-
-📍 Jl. Anggrek Perumnas No.5, Madawat
-<br>
-📞 +62 822-4549-9145
-
-</footer>
+    <script src="js/lang.js"></script>
 
 </body>
 
