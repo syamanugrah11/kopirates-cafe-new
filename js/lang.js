@@ -61,6 +61,8 @@ Nikmati pengalaman minum kopi yang berbeda seperti petualangan di Grand Line.`,
 
         footer_copy: "© 2026 KOPIRATES Coffee",
 
+        best_today: "🔥 Terlaris Hari Ini",
+
     },
 
     en: {
@@ -123,6 +125,8 @@ Enjoy a different coffee experience like an adventure on the Grand Line.`,
         address_full: "📍 Jl. Anggrek Perumnas No.5, Madawat",
 
         footer_copy: "© 2026 KOPIRATES Coffee",
+
+        best_today: "🔥 Best Seller Today",
 
     }
 

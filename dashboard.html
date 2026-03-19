@@ -18,7 +18,7 @@
 
     <div class="topbar">
 
-        <h1 data-lang="dashboard">☕ Dashboard Kasir KOPIRATES</h1>
+        <h1 id="logo" data-lang="dashboard">☕ Dashboard Kasir KOPIRATES</h1>
 
         <div class="lang-switch">
 
@@ -56,11 +56,11 @@
         </div>
 
 
-        <div class="card">
+        <div class="card best-seller-card">
 
-            <h3 data-lang="best_menu">Menu Terlaris</h3>
+            <h3 data-lang="best_today">🔥 Terlaris Hari Ini</h3>
 
-            <div class="big" id="bestMenu">-</div>
+            <div id="bestMenuList"></div>
 
         </div>
 
@@ -80,9 +80,21 @@
 
     <!-- RESET BUTTON -->
 
-    <button class="reset-btn" onclick="resetOrders()" data-lang="reset_today">
-        🗑 Reset Hari Ini
-    </button>
+    <div class="reset-wrapper">
+        <button class="reset-btn" onclick="resetOrders()" data-lang="reset_today">
+            🗑 Reset Hari Ini
+        </button>
+    </div>
+
+    <div class="card">
+        <h3>Kontrol Menu Habis 🔴</h3>
+
+        <div id="menuControl"></div>
+
+        <button onclick="saveOutOfStock()">
+            💾 Simpan Perubahan
+        </button>
+    </div>
 
 
 

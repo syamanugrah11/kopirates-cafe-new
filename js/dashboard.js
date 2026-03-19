@@ -10,6 +10,26 @@ let newOrderIds = new Set()
 let notifQueue = 0
 let notifTimeout = null
 
+const ALL_MENU = [
+    "Espresso",
+    "Americano",
+    "Cappuccino",
+    "Latte",
+    "Mocha",
+    "Caramel Macchiato",
+    "Vanilla Latte",
+    "Hazelnut Latte",
+    "Affogato",
+    "Es Kopi Susu Gula Aren",
+    "Iced Latte",
+    "Iced Americano",
+    "Iced Mocha",
+    "Iced Caramel Latte",
+    "Chocolate Latte",
+    "Matcha Latte",
+    "Red Velvet Latte"
+]
+
 /* =====================================================
 REALTIME FIREBASE LISTENER
 ===================================================== */
@@ -166,13 +186,102 @@ function updateDashboard() {
     document.getElementById("totalOrder").innerText = totalOrder
     document.getElementById("income").innerText = income.toLocaleString("id-ID")
 
-    let bestMenu = Object.keys(menuCount)
-        .sort((a, b) => menuCount[b] - menuCount[a])[0] || "-"
-
-    document.getElementById("bestMenu").innerText = bestMenu
-
     renderOrders()
     renderChart()
+    renderBestSeller(menuCount)
+
+}
+
+/* =====================================================
+UPDATE BEST MENU
+===================================================== */
+
+function renderBestSeller(menuCount) {
+
+    let box = document.getElementById("bestMenuList")
+    if (!box) return
+
+    box.innerHTML = ""
+
+    let sorted = Object.keys(menuCount)
+        .map(name => ({
+            name,
+            qty: menuCount[name]
+        }))
+        .sort((a, b) => b.qty - a.qty)
+        .slice(0, 5)
+
+    // ambil bahasa aktif
+    let lang = localStorage.getItem("lang") || "id"
+
+    if (sorted.length === 0) {
+
+        box.innerHTML = (lang === "en")
+            ? "No data yet"
+            : "Belum ada data"
+
+        return
+    }
+
+    sorted.forEach((item, index) => {
+
+        box.innerHTML += `
+        <div class="best-item">
+            <div class="best-rank">${index + 1}</div>
+            <div class="best-name">${item.name}</div>
+            <div class="best-qty">${item.qty}</div>
+        </div>
+        `
+
+    })
+
+}
+
+/* =====================================================
+RENDER MENU CONTROL
+===================================================== */
+
+function renderMenuControl(outOfStockData = {}) {
+
+    let box = document.getElementById("menuControl")
+    if (!box) return
+
+    box.innerHTML = ""
+
+    ALL_MENU.forEach(name => {
+
+        let checked = outOfStockData[name] ? "checked" : ""
+
+        box.innerHTML += `
+        <label style="display:block; margin:5px 0;">
+            <input type="checkbox" value="${name}" ${checked}>
+            ${name}
+        </label>
+        `
+    })
+
+}
+
+db.ref("settings/outOfStock").on("value", snap => {
+    let data = snap.val() || {}
+    renderMenuControl(data)
+})
+
+function saveOutOfStock() {
+
+    let checkboxes = document.querySelectorAll("#menuControl input[type=checkbox]")
+
+    let data = {}
+
+    checkboxes.forEach(cb => {
+        if (cb.checked) {
+            data[cb.value] = true
+        }
+    })
+
+    db.ref("settings/outOfStock").set(data)
+
+    alert("Menu habis berhasil diupdate 🔥")
 
 }
 
@@ -394,10 +503,43 @@ function startOrder(id) {
 
 function finishOrder(key) {
 
+    let order = orders.find(o => o.firebaseKey === key)
+
     db.ref("orders/" + key).update({
         status: "ready"
     })
 
+    // ======================================
+    // AUTO WHATSAPP KE CUSTOMER
+    // ======================================
+
+    if (!order) return
+
+    // ⚠️ format nomor WA dari input customer
+    let customerWA = extractWA(order.customer)
+
+    if (!customerWA) {
+        console.warn("Nomor WA tidak ditemukan")
+        return
+    }
+
+    let message = `Halo, pesanan kamu sudah siap 🎉%0A`
+    message += `Kode: ${order.id}%0A`
+    message += `Silakan ambil di kasir 🙌`
+
+    window.open(`https://wa.me/${customerWA}?text=${message}`, "_blank")
+}
+
+function extractWA(text) {
+    // ambil angka dari input customer
+    let number = text.replace(/\D/g, "")
+
+    // ubah 08 → 628
+    if (number.startsWith("08")) {
+        number = "62" + number.slice(1)
+    }
+
+    return number.length >= 10 ? number : null
 }
 
 
@@ -432,7 +574,7 @@ function autoCancelOrders() {
             o.type === "Pickup" || o.type === "Delivery"
         let isStillWaiting = o.status === "waiting"
 
-        let expired = o.time && (now - o.time > 300000)
+        let expired = o.time && (now - o.time > 100000)
 
         if (
             isQRIS &&
@@ -454,7 +596,7 @@ function autoCancelOrders() {
 
 }
 
-setInterval(autoCancelOrders, 10000)
+setInterval(autoCancelOrders, 1000)
 
 document.addEventListener("touchstart", unlockAudio, { once: true })
 document.addEventListener("click", unlockAudio, { once: true })
@@ -482,7 +624,7 @@ setInterval(() => {
         let start = Number(el.getAttribute("data-time"))
         let now = Date.now()
 
-        let sisa = 300000 - (now - start)
+        let sisa = 100000 - (now - start)
 
         if (sisa <= 0) {
             el.innerHTML = "❌ Expired"
@@ -498,3 +640,65 @@ setInterval(() => {
     })
 
 }, 1000)
+
+let clickCount = 0
+
+document.getElementById("logo").addEventListener("click", () => {
+
+    clickCount++
+
+    if (clickCount >= 5) {
+
+        clickCount = 0 // reset biar ga spam
+
+        alert("Admin mode aktif 😈")
+
+        openAdminPanel()
+
+    }
+
+})
+
+function openAdminPanel() {
+
+    let menu = prompt(
+        "Mode Admin:\n\n1. Set Best Seller\n2. Set Menu Habis"
+    )
+
+    if (menu === "1") {
+        setBestSeller()
+    }
+
+    if (menu === "2") {
+        setOutOfStock()
+    }
+}
+
+function setBestSeller() {
+
+    let name = prompt("Masukkan nama menu BEST SELLER:")
+
+    if (!name) return
+
+    db.ref("settings/bestSeller").once("value", snap => {
+
+        let data = snap.val() || {}
+
+        // toggle
+        if (data[name]) {
+            delete data[name]
+            alert(name + " dihapus dari Best Seller")
+        } else {
+            data[name] = true
+            alert(name + " jadi Best Seller 🔥")
+        }
+
+        db.ref("settings/bestSeller").set(data)
+
+    })
+
+}
+
+function setOutOfStock() {
+    alert("Gunakan panel Menu Habis di dashboard ⬇️")
+}

@@ -4,6 +4,35 @@ if (typeof db === "undefined") {
 
 }
 
+let bestSellerGlobal = null
+let outOfStock = {} // 🔥 TAMBAHAN
+
+// ======================================
+// REALTIME SETTINGS DARI FIREBASE
+// ======================================
+
+if (typeof db !== "undefined") {
+
+   // 🔴 MENU HABIS
+   db.ref("settings/outOfStock").on("value", snap => {
+
+      outOfStock = snap.val() || {}
+
+      renderAllMenu() // 🔥 WAJIB refresh menu
+
+   })
+
+   // 🟡 BEST SELLER GLOBAL
+   db.ref("settings/bestSeller").on("value", snap => {
+
+      bestSellerGlobal = snap.val()
+
+      renderAllMenu() // 🔥 WAJIB refresh menu
+
+   })
+
+}
+
 
 // 🔥 WAJIB: unlock audio (taruh di sini)
 document.addEventListener("click", () => {
@@ -157,15 +186,24 @@ function renderCategory(id, data) {
       let name = menu[0]
       let price = menu[1]
       let image = menu[2]
-      let bestSeller = menu[3]
 
-      // =====================================
-      // BADGE BEST SELLER
-      // =====================================
+      // 🔥 PRIORITAS BEST SELLER DARI FIREBASE
+      let bestSeller = bestSellerGlobal
+         ? bestSellerGlobal[name]
+         : menu[3]
 
+      // 🔴 CEK MENU HABIS DARI FIREBASE
+      let isSoldOut = outOfStock[name]
+
+      // badge best seller
       let badge = bestSeller
          ? `<span class="badge">Best Seller</span>`
          : ""
+
+      // 🔴 tombol beda kalau habis
+      let button = isSoldOut
+         ? `<button disabled class="sold-out">Habis</button>`
+         : `<button onclick="addOrder('${name}',${price})">Tambah</button>`
 
       html += `
 
@@ -185,9 +223,7 @@ Rp ${formatRupiah(price)}
 </p>
 
 <!-- tombol tambah ke cart -->
-<button onclick="addOrder('${name}',${price})">
-Tambah
-</button>
+${button}
 
 </div>
 
@@ -197,9 +233,13 @@ Tambah
    document.getElementById(id).innerHTML = html
 }
 
-renderCategory("coffeeMenu", coffeeMenu)
-renderCategory("iceMenu", iceMenu)
-renderCategory("nonCoffeeMenu", nonCoffeeMenu)
+function renderAllMenu() {
+
+   renderCategory("coffeeMenu", coffeeMenu)
+   renderCategory("iceMenu", iceMenu)
+   renderCategory("nonCoffeeMenu", nonCoffeeMenu)
+
+}
 
 /* ===============================
 TAMBAH ORDER DAN HAPUS ORDER
@@ -569,13 +609,19 @@ function isPaid() {
    ].includes(paymentStatus)
 }
 
-
-
 /* ===============================
 KIRIM ORDER
 =============================== */
 
 function sendOrder() {
+
+   // 🔥 ANTI SPAM (WAJIB TARUH DI SINI)
+   let lastOrderTime = localStorage.getItem("lastOrderTime") || 0
+
+   if (Date.now() - lastOrderTime < 10000) {
+      alert("Tunggu 10 detik sebelum order lagi")
+      return
+   }
 
    let orderID = generateOrderID()
 
@@ -584,6 +630,8 @@ function sendOrder() {
    let time = getTime()
 
    let customerInfo = document.getElementById("customerInput").value
+
+   let customerWA = extractWA(customerInfo)
 
    /* VALIDASI INPUT */
 
@@ -644,6 +692,8 @@ function sendOrder() {
 
       customer: customerInfo,
 
+      customerWA: customerWA,
+
       items: JSON.parse(JSON.stringify(orders)),
 
       total: total,
@@ -651,6 +701,8 @@ function sendOrder() {
       payment: paymentStatus,
 
       paid: isPaid(),
+
+      verified: false,
 
       status: "waiting",
 
@@ -721,6 +773,17 @@ BUKA POPUP STATUS ORDER LANGSUNG
 
    resetOrder()
 
+}
+
+function extractWA(text) {
+
+   let number = text.replace(/\D/g, "")
+
+   if (number.startsWith("08")) {
+      number = "62" + number.slice(1)
+   }
+
+   return number.length >= 10 ? number : null
 }
 
 /* ===============================

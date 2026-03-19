@@ -685,3 +685,54 @@ biar tombol rata tengah & rapi
     color: orange;
     margin-top: 5px;
 }
+
+/* JARAK DARI RESET */
+.reset-wrapper {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+/* CARD BEST SELLER */
+.best-seller-card {
+    background: linear-gradient(135deg, #1a1a1a, #111);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+}
+
+/* LIST */
+#bestMenuList {
+    margin-top: 10px;
+}
+
+/* ITEM */
+.best-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: 0.2s;
+}
+
+.best-item:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: scale(1.02);
+}
+
+/* RANK */
+.best-rank {
+    color: gold;
+    font-weight: bold;
+    width: 30px;
+}
+
+/* NAMA */
+.best-name {
+    flex: 1;
+}
+
+/* QTY */
+.best-qty {
+    font-weight: bold;
+    color: #00e676;
+}
